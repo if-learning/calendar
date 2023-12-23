@@ -1,0 +1,111 @@
+/* ШРИФТИ */
+@import url(../css/fonts.css);
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* ГОЛОВНЕ ВІКНО */
+.window {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 40vmax;
+    height: 80vmin;
+    box-shadow: 1px 1px 10px 0.4em rgba(0, 0, 0, 0.342);
+    border-radius: 20px 20px 0 0;
+    background-color:whitesmoke;
+}
+
+/* ВЕРХНЯ ЧАСТИНА ВІКНА */
+.window_top {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    height: 35%;
+    width: 40vmax;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    border-radius: 20px 20px 0 0;
+    font-family: "BenguiatGothicC";
+    font-style: normal;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    user-select: none;
+}
+
+/* рік */
+.window_top p {
+    align-self: center;
+    font-size: 1.8vmax;
+    font-weight: 100;
+    margin-top: -10px;
+    font-family: "Aksent";
+    text-shadow: 3px 3px 10px rgb(0, 0, 0), 2px 1px 1px black;
+}
+
+/* назва місяця + стрілки */
+.month_name_box {
+    position: relative;
+    bottom: 25px;
+    padding: 0;
+    margin: 0;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    width: 40vmax;
+    backdrop-filter: blur(3px);
+    font-size: 4vmax;
+}
+
+#month_name {
+    margin: 0 auto;
+    cursor: default;
+}
+
+#btn_month_left {
+    font-size: 30px;
+    cursor: pointer;
+    margin-left: 15px;
+    text-shadow: 1px 3px 10px rgb(0, 0, 0), 2px 1px 1px black;
+}
+
+#btn_month_left:hover {
+    transform: scale(1.5);
+}
+
+#btn_month_right {
+    font-size: 30px;
+    cursor: pointer;
+    margin-right: 15px;
+    text-shadow: 3px 3px 10px rgb(0, 0, 0), 2px 1px 1px black;
+}
+
+#btn_month_right:hover {
+    transform: scale(1.5);
+}
+
+/* Класи для зміни кольору відповідно пори року */
+/* (додавати в #month_name) */
+.color_winter {
+    text-shadow: 2px 1px 1px rgb(51, 93, 209), 4px 5px 1px black;
+}
+
+.color_spring {
+    text-shadow: 2px 1px 1px rgb(51, 209, 91), 4px 5px 1px black;
+}
+
+.color_summer {
+    text-shadow: 2px 1px 1px rgb(255, 3, 3), 4px 5px 1px black;
+}
+
+.color_autumn {
+    text-shadow: 2px 1px 1px rgb(250, 164, 5), 4px 5px 1px black;
+}

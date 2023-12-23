@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Aksent';
+    src: url('../fonts/AksentNormal.woff2') format('woff2'),
+        url('../fonts/AksentNormal.woff') format('woff'),
+        url('../fonts/AksentNormal.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'BenguiatGothicC';
+    src: url('../fonts/BenguiatGothicC-Book.woff2') format('woff2'),
+        url('../fonts/BenguiatGothicC-Book.woff') format('woff'),
+        url('../fonts/BenguiatGothicC-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
