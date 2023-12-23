@@ -4,7 +4,8 @@ const calendar = document.querySelector('.window'),
       calendar_top = calendar.querySelector('.window_top'),
       btn_next_month = calendar.querySelector('#btn_month_right'),
       btn_prev_month = calendar.querySelector('#btn_month_left'),
-      month_name = calendar.querySelector('#month_name');
+      month_name = calendar.querySelector('#month_name'),
+      days_bar = calendar.querySelector('.days_bar');
 
 const month_names = ["Січень", "Лютий", "Березень",
                      "Квітень", "Травень", "Червень", 
@@ -18,28 +19,32 @@ const month_change_img = function() {
     calendar_top.style.backgroundImage = `url("../image/${month_num}.png")`;
 };
 
-// ЗМІНЮЄ КОЛЬОРИ НАЗВИ МІСЯЦЯ
+// ЗМІНЮЄ КОЛЬОРИ НАЗВИ МІСЯЦЯ + ПАНЕЛІ З ДНЯМИ ТИЖНЯ
 const month_change_color = function() {
     if (month_num == 12 || month_num == 1 || month_num == 2) {
         month_name.classList.remove("color_spring");
         month_name.classList.remove("color_summer");
         month_name.classList.remove("color_autumn");
         month_name.classList.add("color_winter");
+        days_bar.style.backgroundColor = "rgb(51, 93, 209)";
     } else if (month_num == 3 || month_num == 4 || month_num == 5) {
         month_name.classList.remove("color_winter");
         month_name.classList.remove("color_summer");
         month_name.classList.remove("color_autumn");
         month_name.classList.add("color_spring");
+        days_bar.style.backgroundColor = "rgb(51, 209, 91)";
     } else if (month_num == 6 || month_num == 7 || month_num == 8) {
         month_name.classList.remove("color_spring");
         month_name.classList.remove("color_winter");
         month_name.classList.remove("color_autumn");
         month_name.classList.add("color_summer");
+        days_bar.style.backgroundColor = "rgb(255, 3, 3)";
     } else {
         month_name.classList.remove("color_winter");
         month_name.classList.remove("color_summer");
         month_name.classList.remove("color_spring");
         month_name.classList.add("color_autumn");
+        days_bar.style.backgroundColor = "rgb(250, 164, 5)";
     }
 };
 
