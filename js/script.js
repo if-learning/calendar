@@ -5,7 +5,22 @@ const calendar = document.querySelector('.window'),
       btn_next_month = calendar.querySelector('#btn_month_right'),
       btn_prev_month = calendar.querySelector('#btn_month_left'),
       month_name = calendar.querySelector('#month_name'),
-      days_bar = calendar.querySelector('.days_bar');
+      days_bar = calendar.querySelector('.days_bar'),
+      last_days_list= calendar.querySelectorAll('.days_last p'),
+      day = calendar.querySelector('.day');
+
+// ЗАМІТКА!
+// Легшим рішенням для нашого календаря буде просто приховувати непотрібні дні
+// та знову їх показувати , коли потрібно.
+
+// Уявімо що в місяці 30 днів , отже нам потрібно приховати останній. 
+// // Використаємо змінну last_days_list яка є псевдо масивом з трьома останніми числами (29, 30 ,31):
+// last_days_list[2].style.display = 'none';
+
+// Тепер в наступному місяці нам треба повернути цей день :
+// last_days_list[2].style.display = 'flex';
+// *flex - щоб не зламати стилі.
+
 
 const month_names = ["Січень", "Лютий", "Березень",
                      "Квітень", "Травень", "Червень", 
@@ -48,16 +63,10 @@ const month_change_color = function() {
     }
 };
 
-// ЗМІНЮЄ ЗОБРАЖЕННЯ ДЛЯ МІСЯЦЯ
-const month_change_image = function() {
-    
-};
-
 // ЗМІНИ В МІСЯЦІ ПО НАТИСКУ КНОПОК
 const change_month = function(next, prev) {
     // Вибір наступного місяця
     next.addEventListener('click', () => {
-        //анімація зникнення
         if (month_num < 12) {
             month_num++;
         } else {
@@ -67,9 +76,10 @@ const change_month = function(next, prev) {
         month_name.innerHTML = month_names[(month_num - 1)];            
         // зміна кольору
         month_change_color();
-        console.log(month_num);
         //зміна зображення
         month_change_img();
+        // !!!
+        // ТУТ ДОДАТИ ФУНКЦІЮ
     });
 
     // Вибір попереднього місяця
@@ -83,9 +93,10 @@ const change_month = function(next, prev) {
         month_name.innerHTML = month_names[(month_num - 1)];
         // зміна кольору
         month_change_color();
-        console.log(month_num);
         //зміна зображення
         month_change_img();
+        // !!!
+        // ТУТ ТАКОЖ ДОДАТИ ЇЇ
     });
 };
 
