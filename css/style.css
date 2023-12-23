@@ -173,8 +173,12 @@ body {
     padding-left: 2px;
 }
 
+#day_last:first-child {
+    margin-left: 0.1vmax;
+}
+
 #day_last {
-    margin-left: 0.3vmax;
+    margin-left: 0.35vmax;
 }
 
 .day {
