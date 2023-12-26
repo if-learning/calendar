@@ -122,6 +122,39 @@ const changeDaysInMonth = function() {
         });
     }
 };
+const month_change_color = function() {
+    const daysList = calendar.querySelectorAll('.day');
+
+    if (month_num == 12 || month_num == 1 || month_num == 2) {
+        applyColorToDays(daysList, 'rgb(51, 93, 209)');
+        month_name.classList.remove("color_spring", "color_summer", "color_autumn");
+        month_name.classList.add("color_winter");
+        days_bar.style.backgroundColor = "rgb(51, 93, 209)";
+    } else if (month_num == 3 || month_num == 4 || month_num == 5) {
+        applyColorToDays(daysList, 'rgb(51, 209, 91)');
+        month_name.classList.remove("color_winter", "color_summer", "color_autumn");
+        month_name.classList.add("color_spring");
+        days_bar.style.backgroundColor = "rgb(51, 209, 91)";
+    } else if (month_num == 6 || month_num == 7 || month_num == 8) {
+        applyColorToDays(daysList, 'rgb(255, 3, 3)');
+        month_name.classList.remove("color_spring", "color_winter", "color_autumn");
+        month_name.classList.add("color_summer");
+        days_bar.style.backgroundColor = "rgb(255, 3, 3)";
+    } else {
+        applyColorToDays(daysList, 'rgb(250, 164, 5)');
+        month_name.classList.remove("color_winter", "color_summer", "color_spring");
+        month_name.classList.add("color_autumn");
+        days_bar.style.backgroundColor = "rgb(250, 164, 5)";
+    }
+};
+
+// Функція для застосування кольору до всіх днів
+const applyColorToDays = function(daysList, color) {
+    daysList.forEach(day => {
+        day.style.backgroundColor = color;
+    });
+};
+
 
 };
 
