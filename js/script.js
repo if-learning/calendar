@@ -78,8 +78,8 @@ const change_month = function(next, prev) {
         month_change_color();
         //зміна зображення
         month_change_img();
-        // !!!
-        // ТУТ ДОДАТИ ФУНКЦІЮ
+        // зміна кількості днів
+        changeDaysInMonth();
     });
 
     // Вибір попереднього місяця
@@ -95,9 +95,34 @@ const change_month = function(next, prev) {
         month_change_color();
         //зміна зображення
         month_change_img();
-        // !!!
-        // ТУТ ТАКОЖ ДОДАТИ ЇЇ
+        // зміна кількості днів
+        changeDaysInMonth();
     });
+
+   // Функція для зміни кількості днів в місяці
+const changeDaysInMonth = function() {
+    const lastDaysList = calendar.querySelectorAll('.days_last p');
+
+    // Сховати всі дні
+    lastDaysList.forEach(day => {
+        day.style.display = 'none';
+    });
+
+    // Перевірка для лютого, квітня, червня, вересня, листопаду
+    if (month_num === 2) {
+        lastDaysList[0].style.display = 'flex'; // Лютому 29 днів
+    } else if ([4, 6, 9, 11].includes(month_num)) {
+        for (let i = 0; i < 2; i++) {
+            lastDaysList[i].style.display = 'flex'; // Квітню, Червню, Вересню, Листопаду 30 днів
+        }
+    } else {
+        // Всі інші місяці
+        lastDaysList.forEach(day => {
+            day.style.display = 'flex'; // Всі інші місяці мають 31 день
+        });
+    }
+};
+
 };
 
 // ВИКЛИКАНІ ФУНКЦІЇ
