@@ -1,166 +1,134 @@
 "use strict";
 
-const calendar = document.querySelector('.window'),
-      calendar_top = calendar.querySelector('.window_top'),
-      btn_next_month = calendar.querySelector('#btn_month_right'),
-      btn_prev_month = calendar.querySelector('#btn_month_left'),
-      month_name = calendar.querySelector('#month_name'),
-      days_bar = calendar.querySelector('.days_bar'),
-      last_days_list= calendar.querySelectorAll('.days_last p'),
-      day = calendar.querySelector('.day');
+const calendar = document.querySelector('.calendar'), // все вікно календарю
+      top_clock = calendar.querySelector('#top_hour'), //година зверху
+      top_date = calendar.querySelector('#top_date'), // дата під годиною
+      mid_date = calendar.querySelector('#btn_date'), // дата над днями
+      days = calendar.querySelector('.days');
 
-// ЗАМІТКА!
-// Легшим рішенням для нашого календаря буде просто приховувати непотрібні дні
-// та знову їх показувати , коли потрібно.
+// //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
+// const now = new Date(Date.now());
+// let year = now.getFullYear(),
+//     month = now.getMonth(),
+//     day = now.getDay(),
+//     hours = now.getHours(),
+//     minutes = now.getMinutes(),
+//     seconds = now.getSeconds();
 
-// Уявімо що в місяці 30 днів , отже нам потрібно приховати останній. 
-// // Використаємо змінну last_days_list яка є псевдо масивом з трьома останніми числами (29, 30 ,31):
-// last_days_list[2].style.display = 'none';
+//ВИВОДИТЬ ГОДИНУ ЗВЕРХУ
+function show_hour() {
+    //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
+    const now = new Date(Date.now());
+    let hours = now.getHours(),
+        minutes = now.getMinutes(),
+        seconds = now.getSeconds();
 
-// Тепер в наступному місяці нам треба повернути цей день :
-// last_days_list[2].style.display = 'flex';
-// *flex - щоб не зламати стилі.
-
-
-const month_names = ["Січень", "Лютий", "Березень",
-                     "Квітень", "Травень", "Червень", 
-                     "Липень", "Серпень", "Вересень", 
-                     "Жовтень", "Листопад", "Грудень"];
-
-let month_num = 1;
-
-// ЗМІНЮЄ ЗОБРАЖЕННЯ ДЛЯ ВЕРХНЬОЇ ЧАСТИНИ 
-const month_change_img = function() {
-    calendar_top.style.backgroundImage = `url("../image/${month_num}.png")`;
-};
-
-// ЗМІНЮЄ КОЛЬОРИ НАЗВИ МІСЯЦЯ + ПАНЕЛІ З ДНЯМИ ТИЖНЯ
-const month_change_color = function() {
-    if (month_num == 12 || month_num == 1 || month_num == 2) {
-        month_name.classList.remove("color_spring");
-        month_name.classList.remove("color_summer");
-        month_name.classList.remove("color_autumn");
-        month_name.classList.add("color_winter");
-        days_bar.style.backgroundColor = "rgb(51, 93, 209)";
-    } else if (month_num == 3 || month_num == 4 || month_num == 5) {
-        month_name.classList.remove("color_winter");
-        month_name.classList.remove("color_summer");
-        month_name.classList.remove("color_autumn");
-        month_name.classList.add("color_spring");
-        days_bar.style.backgroundColor = "rgb(51, 209, 91)";
-    } else if (month_num == 6 || month_num == 7 || month_num == 8) {
-        month_name.classList.remove("color_spring");
-        month_name.classList.remove("color_winter");
-        month_name.classList.remove("color_autumn");
-        month_name.classList.add("color_summer");
-        days_bar.style.backgroundColor = "rgb(255, 3, 3)";
-    } else {
-        month_name.classList.remove("color_winter");
-        month_name.classList.remove("color_summer");
-        month_name.classList.remove("color_spring");
-        month_name.classList.add("color_autumn");
-        days_bar.style.backgroundColor = "rgb(250, 164, 5)";
+    //Дописує нулі якщо число менше 10-и
+    if (hours < 10) {
+        hours = `0${hours}`;
     }
-};
 
-// ЗМІНИ В МІСЯЦІ ПО НАТИСКУ КНОПОК
-const change_month = function(next, prev) {
-    // Вибір наступного місяця
-    next.addEventListener('click', () => {
-        if (month_num < 12) {
-            month_num++;
-        } else {
-            month_num = 1;
+    if (minutes < 10) {
+        minutes = `0${minutes}`;
+    }
+
+    if (seconds < 10) {
+        seconds = `0${seconds}`;
+    }
+
+    //Виводить актуальну годину
+    top_clock.innerHTML = `${hours}:${minutes}:${seconds}`;
+}
+
+//ВИВОДИТЬ ДАТУ ЗВЕРХУ (+ДАТА НАД ДНЯМИ)
+function show_date() {
+    //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
+    const now = new Date(Date.now());
+    let year = now.getFullYear(),
+        month = now.getMonth(),
+        day = now.getDay();
+
+    //Місяці в родовому відмінку
+    const monthes = {
+        0: "січня",
+        1: "лютого",
+        2: "березня",
+        3: "квітня",
+        4: "травня",
+        5: "червня",
+        6: "липня",
+        7: "серпня",
+        8: "вересня",
+        9: "жовтня",
+        10: "листопада",
+        11: "грудня"
+    };
+    
+    const monthes_2 = {
+        0: "січень",
+        1: "лютий",
+        2: "березень",
+        3: "квітень",
+        4: "травень",
+        5: "червень",
+        6: "липень",
+        7: "серпень",
+        8: "вересень",
+        9: "жовтень",
+        10: "листопад",
+        11: "грудень"
+    };
+
+    //Виводить дату в топі календаря
+    top_date.innerHTML = `${day} ${monthes[month]} ${year} р.`;
+    //Виводить дату над днями тижня
+    mid_date.innerHTML = `${monthes_2[month]} ${year} p.`;
+}
+
+// СТВОРЮЄ ТА ДОДАЄ ДНІ
+function add_days() {
+    //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
+    const now = new Date(Date.now());
+    let month = now.getMonth();
+
+    //Заповнює календар днями до 42
+    for (let i = 1; i < 43; i++) {
+        const day = document.createElement('div');
+        day.classList.add('day');
+        day.innerHTML = i;
+        days.append(day);
+    }
+
+    //Масив зі всіма днями
+    const days_all = calendar.querySelectorAll('.day');
+
+    //Редагує зайві дні 
+    if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
+        for (let i = 31; i < 43; i++) {
+            days_all[i].innerHTML = i - 30;
+            days_all[i].classList.remove('day');
+            days_all[i].classList.add('day_last');
         }
-        // зміна імені
-        month_name.innerHTML = month_names[(month_num - 1)];            
-        // зміна кольору
-        month_change_color();
-        //зміна зображення
-        month_change_img();
-        // зміна кількості днів
-        changeDaysInMonth();
-    });
-
-    // Вибір попереднього місяця
-    prev.addEventListener('click', () => {
-        if (month_num > 1) {
-            month_num--;
-        } else {
-            month_num = 12;
-        }
-        // зміна імені
-        month_name.innerHTML = month_names[(month_num - 1)];
-        // зміна кольору
-        month_change_color();
-        //зміна зображення
-        month_change_img();
-        // зміна кількості днів
-        changeDaysInMonth();
-    });
-
-   // Функція для зміни кількості днів в місяці
-const changeDaysInMonth = function() {
-    const lastDaysList = calendar.querySelectorAll('.days_last p');
-
-    // Сховати всі дні
-    lastDaysList.forEach(day => {
-        day.style.display = 'none';
-    });
-
-    // Перевірка для лютого, квітня, червня, вересня, листопаду
-    if (month_num === 2) {
-        lastDaysList[0].style.display = 'flex'; // Лютому 29 днів
-    } else if ([4, 6, 9, 11].includes(month_num)) {
-        for (let i = 0; i < 2; i++) {
-            lastDaysList[i].style.display = 'flex'; // Квітню, Червню, Вересню, Листопаду 30 днів
+    } else if (month == 1) {
+        for (let i = 29; i < 43; i++) {
+            days_all[i].innerHTML = i - 28;
+            days_all[i].classList.remove('day');
+            days_all[i].classList.add('day_last');
         }
     } else {
-        // Всі інші місяці
-        lastDaysList.forEach(day => {
-            day.style.display = 'flex'; // Всі інші місяці мають 31 день
-        });
+        for (let i = 30; i < 43; i++) {
+            days_all[i].innerHTML = i - 29;
+            days_all[i].classList.remove('day');
+            days_all[i].classList.add('day_last');
+        }
     }
-};
-const month_change_color = function() {
-    const daysList = calendar.querySelectorAll('.day');
-
-    if (month_num == 12 || month_num == 1 || month_num == 2) {
-        applyColorToDays(daysList, 'rgb(51, 93, 209)');
-        month_name.classList.remove("color_spring", "color_summer", "color_autumn");
-        month_name.classList.add("color_winter");
-        days_bar.style.backgroundColor = "rgb(51, 93, 209)";
-    } else if (month_num == 3 || month_num == 4 || month_num == 5) {
-        applyColorToDays(daysList, 'rgb(51, 209, 91)');
-        month_name.classList.remove("color_winter", "color_summer", "color_autumn");
-        month_name.classList.add("color_spring");
-        days_bar.style.backgroundColor = "rgb(51, 209, 91)";
-    } else if (month_num == 6 || month_num == 7 || month_num == 8) {
-        applyColorToDays(daysList, 'rgb(255, 3, 3)');
-        month_name.classList.remove("color_spring", "color_winter", "color_autumn");
-        month_name.classList.add("color_summer");
-        days_bar.style.backgroundColor = "rgb(255, 3, 3)";
-    } else {
-        applyColorToDays(daysList, 'rgb(250, 164, 5)');
-        month_name.classList.remove("color_winter", "color_summer", "color_spring");
-        month_name.classList.add("color_autumn");
-        days_bar.style.backgroundColor = "rgb(250, 164, 5)";
-    }
-};
-
-// Функція для застосування кольору до всіх днів
-const applyColorToDays = function(daysList, color) {
-    daysList.forEach(day => {
-        day.style.backgroundColor = color;
-    });
-};
-
-
-};
+}
 
 // ВИКЛИКАНІ ФУНКЦІЇ
 
-change_month(btn_next_month, btn_prev_month);
-month_change_img();
-
+add_days();
+setInterval(() => {
+    show_hour();
+    show_date();
+}, 1000);
 

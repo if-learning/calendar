@@ -9,67 +9,32 @@
         <body>
             <div class="content">
                 <!-- Вікно календарю -->
-                <div class="window">
-                    <!-- Верхня частина вікна із зображенням -->
-                    <div class="window_top">
-                        <!-- Назва місяця + стрілки -->
-                        <div class="month_name_box">
-                            <div id="btn_month_left">&#11164;</div>
-                            <div id="month_name" class="color_winter">Січень</div>
-                            <div id="btn_month_right">&#11166;</div>
+                <div class="calendar">
+                    <!-- Верхня частина вікна-->
+                    <div class="calendar_top">
+                        <!-- Година-->
+                        <div id="top_hour">00:00:00</div>
+                        <!-- Дата -->
+                        <div id="top_date">1 cічня 2024 р.</div>
+                    </div>
+                    <!-- Середина з датою і кнопками + дні тижня -->
+                    <div class="calendar_mid">
+                        <div class="calendar_month">
+                            <div id="btn_date"></div>
+                            <div id="btn_left">&#9651;</div>
+                            <div id="btn_right">&#9661;</div>
                         </div>
-                        <!-- Рік -->
-                        <div class="year">
-                            <p>2024</p>
+                        <div class="calendar_week">
+                            <p>Пн</p>
+                            <p>Вт</p>
+                            <p>Ср</p>
+                            <p>Чт</p>
+                            <p>Пт</p>
+                            <p>Сб</p>
+                            <p>Нд</p>
                         </div>
                     </div>
-                    <!-- Блок з днями тижня -->
-                    <div class="days_bar">
-                        <p>Пн</p>
-                        <p>Вт</p>
-                        <p>Ср</p>
-                        <p>Чт</p>
-                        <p>Пт</p>
-                        <p>Сб</p>
-                        <p>Нд</p>
-                    </div>
-                    <!-- Блок з днями місяця -->
                     <div class="days">
-                        <div class="days_first">
-                            <p class="day">1</p>
-                            <p class="day">2</p>
-                            <p class="day">3</p>
-                            <p class="day">4</p>
-                            <p class="day">5</p>
-                            <p class="day">6</p>
-                            <p class="day">7</p>
-                            <p class="day">8</p>
-                            <p class="day">9</p>
-                            <p class="day">10</p>
-                            <p class="day">11</p>
-                            <p class="day">12</p>
-                            <p class="day">13</p>
-                            <p class="day">14</p>
-                            <p class="day">15</p>
-                            <p class="day">16</p>
-                            <p class="day">17</p>
-                            <p class="day">18</p>
-                            <p class="day">19</p>
-                            <p class="day">20</p>
-                            <p class="day">21</p>
-                            <p class="day">22</p>
-                            <p class="day">23</p>
-                            <p class="day">24</p>
-                            <p class="day">25</p>
-                            <p class="day">26</p>
-                            <p class="day">27</p>
-                            <p class="day">28</p>
-                        </div>
-                        <div class="days_last">
-                            <p class="day" id="day_last">29</p>
-                            <p class="day" id="day_last">30</p>
-                            <p class="day" id="day_last">31</p>
-                        </div>
                     </div>
                 </div>
             </div>
