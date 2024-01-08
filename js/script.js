@@ -1,10 +1,10 @@
 "use strict";
 
 const calendar = document.querySelector('.calendar'), // все вікно календарю
-      top_clock = calendar.querySelector('#top_hour'), //година зверху
-      top_date = calendar.querySelector('#top_date'), // дата під годиною
-      mid_date = calendar.querySelector('#btn_date'), // дата над днями
-      days = calendar.querySelector('.days');
+    top_clock = calendar.querySelector('#top_hour'), //година зверху
+    top_date = calendar.querySelector('#top_date'), // дата під годиною
+    mid_date = calendar.querySelector('#btn_date'), // дата над днями
+    days = calendar.querySelector('.days');
 
 // //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
 // const now = new Date(Date.now());
@@ -16,37 +16,27 @@ const calendar = document.querySelector('.calendar'), // все вікно ка�
 //     seconds = now.getSeconds();
 
 //ВИВОДИТЬ ГОДИНУ ЗВЕРХУ
-function show_hour() {
+function show_hour(now) {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
-    const now = new Date(Date.now());
     let hours = now.getHours(),
         minutes = now.getMinutes(),
         seconds = now.getSeconds();
 
     //Дописує нулі якщо число менше 10-и
-    if (hours < 10) {
-        hours = `0${hours}`;
-    }
-
-    if (minutes < 10) {
-        minutes = `0${minutes}`;
-    }
-
-    if (seconds < 10) {
-        seconds = `0${seconds}`;
-    }
+    hours = hours < 10 ? `0${hours}` : hours;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
 
     //Виводить актуальну годину
     top_clock.innerHTML = `${hours}:${minutes}:${seconds}`;
 }
 
 //ВИВОДИТЬ ДАТУ ЗВЕРХУ (+ДАТА НАД ДНЯМИ)
-function show_date() {
+function show_date(now) {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
-    const now = new Date(Date.now());
     let year = now.getFullYear(),
         month = now.getMonth(),
-        day = now.getDay();
+        day = now.getDate();
 
     //Місяці в родовому відмінку
     const monthes = {
@@ -63,7 +53,7 @@ function show_date() {
         10: "листопада",
         11: "грудня"
     };
-    
+
     const monthes_2 = {
         0: "січень",
         1: "лютий",
@@ -89,7 +79,8 @@ function show_date() {
 function add_days() {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
     const now = new Date(Date.now());
-    let month = now.getMonth();
+    const month = now.getMonth();
+    const dayOfMonth = now.getDate();
 
     //Заповнює календар днями до 42
     for (let i = 1; i < 43; i++) {
@@ -97,10 +88,19 @@ function add_days() {
         day.classList.add('day');
         day.innerHTML = i;
         days.append(day);
+
+        //Додає клас current-day для поточного дня
+        if (i === dayOfMonth && (i <= 31 || (i <= 29 && month === 1) || (i <= 30 && month !== 1))) {
+            day.classList.add('current-day');
+        }
     }
 
     //Масив зі всіма днями
     const days_all = calendar.querySelectorAll('.day');
+
+    //Визначає кількість днів у лютому враховуючи високосний рік
+    const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    const daysInFebruary = isLeapYear(now.getFullYear()) ? 29 : 28;
 
     //Редагує зайві дні 
     if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
@@ -111,13 +111,13 @@ function add_days() {
         }
     } else if (month == 1) {
         for (let i = 29; i < 43; i++) {
-            days_all[i].innerHTML = i - 28;
+            days_all[i].innerHTML = i - (31 - daysInFebruary);
             days_all[i].classList.remove('day');
             days_all[i].classList.add('day_last');
         }
     } else {
         for (let i = 30; i < 43; i++) {
-            days_all[i].innerHTML = i - 29;
+            days_all[i].innerHTML = i - (30 - daysInFebruary);
             days_all[i].classList.remove('day');
             days_all[i].classList.add('day_last');
         }
@@ -125,10 +125,12 @@ function add_days() {
 }
 
 // ВИКЛИКАНІ ФУНКЦІЇ
-
-add_days();
+// Оновлює годину та дату кожну секунду
 setInterval(() => {
-    show_hour();
-    show_date();
+    const now = new Date(Date.now());
+    show_hour(now);
+    show_date(now);
 }, 1000);
 
+// Викликає функцію для додавання днів
+add_days();

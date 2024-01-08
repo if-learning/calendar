@@ -6,6 +6,12 @@ body {
     padding: 0;
 }
 
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .calendar {
     user-select: none;
     cursor: default;
@@ -180,4 +186,9 @@ body {
     100%{
         border: 2px solid rgb(219, 210, 210);
     }
+}
+.current-day {
+    background-color: rgb(37, 36, 36);
+    border: 2px solid rgb(115, 221, 221); 
+    color: rgb(115, 221, 221); 
 }
