@@ -112,11 +112,6 @@ function add_days() {
         day.classList.add('day');
         day.innerHTML = i;
         days.append(day);
-
-        //Додає клас current-day для поточного дня
-        if (i === dayOfMonth && (i <= 31 || (i <= 29 && month === 1) || (i <= 30 && month !== 1))) {
-            day.classList.add('current-day');
-        }
     }
 
     //Масив зі всіма днями
@@ -154,7 +149,7 @@ function add_days() {
 function add_monthes() {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
     let now = new Date(Date.now()),
-        year = now.getFullYear();
+        month = now.getMonth();
 
     const monthes = [
         'січ', 'лют', 'бер', 'кві',
@@ -208,6 +203,7 @@ function add_years() {
         year.innerHTML = i;
         new_years.append(year);
     }
+
 }
 add_years(); //викликаємо один раз щоб створити їх
 
@@ -224,6 +220,7 @@ function show_years() {
 
 //ПЕРЕКЛЮЧАЄ РЕЖИМ ПЕРЕГЛЯДУ(ДНІ/МІСЯЦІ/РОКИ)
 function switch_view() {
+    //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
     let now = new Date(Date.now()),
         month = now.getMonth(),
         year = now.getFullYear(),
@@ -265,12 +262,58 @@ function switch_view() {
     });
 }
 
+//ПРИСВОЮЄ КЛАС CURRENT ПОТОЧНОМУ ДНЮ/МІСЯЦЮ/РОКУ
+function make_current(now) {
+    //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
+    let day = now.getDate(),
+        month = now.getMonth(),
+        year = now.getFullYear();
+    // Змінні з псевдо-масивами для днів , місяців та років
+    const ds = calendar.querySelectorAll('.day'),
+          ms = calendar.querySelectorAll('.month'),
+          ys = calendar.querySelectorAll('.year');
+
+    //Для днів:
+    ds.forEach((e, num) => {
+        //Додаємо поточному дню клас current
+        if (num == day - 1) {
+            e.classList.add('current');
+        //Видаляємо іншим дням клас current
+        } else {
+            e.classList.remove('current');
+        }
+    });
+
+    //Для місяців:
+    ms.forEach((e, num) => {
+        //Додаємо поточному місяцю клас current
+        if (num == month) {
+            e.classList.add('current');
+        //Видаляємо іншим місяцям клас current
+        } else {
+            e.classList.remove('current');
+        }
+    });
+
+    //Для років:
+    ys.forEach(y => {
+        //Додаємо поточному року клас current
+        if (y.innerHTML.includes(year)) {
+            y.classList.add('current');
+        //Видаляємо іншим рокам клас current
+        } else {
+            y.classList.remove('current');
+        }
+    });
+}
+
 // ВИКЛИКАНІ ФУНКЦІЇ
 // Оновлює годину та дату кожну секунду
 setInterval(() => {
     let now = new Date(Date.now());
     show_hour(now);
     show_date(now);
+    make_current(now);
 }, 1000);
-switch_view(); // 2* а цю перед тією , я хз чому)
-add_days(); // 1* цю хуйню викликати треба тільки після верхніх ф-цій
+switch_view();
+add_days(); // цю херню треба викликати після інших
