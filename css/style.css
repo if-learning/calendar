@@ -289,8 +289,37 @@ body {
     border: 2px solid rgb(219, 210, 210);
 }
 
-.current{
+.current {
+    animation: none;
     background-color: rgb(37, 36, 36);
-    border: 2px solid rgb(115, 221, 221); 
+    border: 2px solid #73dddd; 
     color: rgb(115, 221, 221); 
+}
+
+.current:hover {
+    border: 2px solid rgb(115, 221, 221); 
+    background-color: rgb(115, 221, 221); 
+    color: white;
+}
+
+@keyframes currin {
+    0%{
+        color: rgb(115, 221, 221); 
+        background-color: rgb(37, 36, 36);
+    }
+    100%{
+        color: white;
+        background-color: rgb(115, 221, 221); 
+    }
+}
+
+@keyframes currout {
+    0%{
+        color: white; 
+        background-color: rgb(115, 221, 221);
+    }
+    100%{
+        color: rgb(115, 221, 221); 
+        background-color: rgb(37, 36, 36); 
+    }
 }

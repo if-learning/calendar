@@ -275,9 +275,18 @@ function make_current(now) {
 
     //Для днів:
     ds.forEach((e, num) => {
-        //Додаємо поточному дню клас current
         if (num == day - 1) {
+            //Додаємо поточному дню клас current
             e.classList.add('current');
+            //Фікс анімації
+            e.style.animation = 'none';
+            //Додаємо анімації
+            e.addEventListener('mouseover', () => {
+                e.style.animation = 'currin 0.4s';
+            });
+            e.addEventListener('mouseout', () => {
+                e.style.animation = 'currout 0.4s';
+            });
         //Видаляємо іншим дням клас current
         } else {
             e.classList.remove('current');
@@ -286,9 +295,18 @@ function make_current(now) {
 
     //Для місяців:
     ms.forEach((e, num) => {
-        //Додаємо поточному місяцю клас current
         if (num == month) {
+            //Додаємо поточному місяцю клас current
             e.classList.add('current');
+            //Фікс анімації
+            e.style.animation = 'none';
+            //Додаємо анімації
+            e.addEventListener('mouseover', () => {
+                e.style.animation = 'currin 0.4s';
+            });
+            e.addEventListener('mouseout', () => {
+                e.style.animation = 'currout 0.4s';
+            });
         //Видаляємо іншим місяцям клас current
         } else {
             e.classList.remove('current');
@@ -297,9 +315,18 @@ function make_current(now) {
 
     //Для років:
     ys.forEach(y => {
-        //Додаємо поточному року клас current
         if (y.innerHTML.includes(year)) {
+            //Додаємо поточному року клас current
             y.classList.add('current');
+            //Фікс анімації
+            y.style.animation = 'none';
+            //Додаємо анімації
+            y.addEventListener('mouseover', () => {
+                y.style.animation = 'currin 0.4s';
+            });
+            y.addEventListener('mouseout', () => {
+                y.style.animation = 'currout 0.4s';
+            });
         //Видаляємо іншим рокам клас current
         } else {
             y.classList.remove('current');
