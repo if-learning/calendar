@@ -11,20 +11,21 @@ const calendar = document.querySelector('.calendar'), // все вікно ка�
     new_years = calendar.querySelector('.years'); // роки які заміняють місяці
 
     const monthes_2 = {
-    0: "січень",
-    1: "лютий",
-    2: "березень",
-    3: "квітень",
-    4: "травень",
-    5: "червень",
-    6: "липень",
-    7: "серпень",
-    8: "вересень",
-    9: "жовтень",
-    10: "листопад",
-    11: "грудень"
-};
-    // //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
+        0: "січень",
+        1: "лютий",
+        2: "березень",
+        3: "квітень",
+        4: "травень",
+        5: "червень",
+        6: "липень",
+        7: "серпень",
+        8: "вересень",
+        9: "жовтень",
+        10: "листопад",
+        11: "грудень"
+    }; //(потрібно було вивести сюди для роботи ф-ції show_mid_date)
+
+//ТЕПЕРІШНІ ДАНІ ПО ДАТІ
 // const now = new Date(Date.now());
 // let year = now.getFullYear(),
 //     month = now.getMonth(),
@@ -76,6 +77,7 @@ function show_date(now) {
     top_date.innerHTML = `${day} ${monthes[month]} ${year} р.`;   
 }
 
+//ВИВОДИТЬ СЕРЕДНЮ ДАТУ (ПОТРІБНО ДЛЯ ФУНКЦІОНАЛУ КНОПКИ ПІСЛЯ ЗМІНИ РЕЖИМУ ВІДОБРАЖЕННЯ)
 function show_mid_date(a) {
     mid_date.innerHTML = a;
 }
@@ -96,10 +98,10 @@ function show_days() {
 //ДОДАЄ ДНІ
 function add_days() {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
-    const now = new Date(Date.now());
-    const month = now.getMonth();
-    const dayOfMonth = now.getDate();
-    const year = now.getFullYear();
+    let now = new Date(Date.now());
+    let month = now.getMonth();
+    let dayOfMonth = now.getDate();
+    let year = now.getFullYear();
 
     //Викликає ф-цію яка виводить дату над днями
     show_mid_date(`${monthes_2[month]} ${year} p.`);
@@ -147,13 +149,12 @@ function add_days() {
 
     top_month.style.marginBottom = '-38px';
 }
-add_days(); //викликаємо одразу щоб створити дні
 
 //ДОДАЄ МІСЯЦІ
 function add_monthes() {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
-    const now = new Date(Date.now()),
-          year = now.getFullYear();
+    let now = new Date(Date.now()),
+        year = now.getFullYear();
 
     const monthes = [
         'січ', 'лют', 'бер', 'кві',
@@ -193,9 +194,17 @@ function show_monthes() {
 //ДОДАЄ РОКИ
 function add_years() {
     // Додає перші 10 років
-    for (let i = 2020; i < 2029; i++) {
+    for (let i = 2020; i < 2030; i++) {
         const year = document.createElement('div');
         year.classList.add('year');
+        year.innerHTML = i;
+        new_years.append(year);
+    }
+
+    //Додає останні 5 років
+    for (let i = 2030; i < 2036; i++) {
+        const year = document.createElement('div');
+        year.classList.add('year_last');
         year.innerHTML = i;
         new_years.append(year);
     }
@@ -214,28 +223,44 @@ function show_years() {
 }
 
 //ПЕРЕКЛЮЧАЄ РЕЖИМ ПЕРЕГЛЯДУ(ДНІ/МІСЯЦІ/РОКИ)
-    function switch_view() {
-    //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
-    const now = new Date(Date.now()),
-          year = now.getFullYear(),
-          month = now.getMonth();
-
-    let mode = 1; // змінна для режиму показу
-
-    //Функціонал по кліку на дату
+function switch_view() {
+    let now = new Date(Date.now()),
+        month = now.getMonth(),
+        year = now.getFullYear(),
+        mode = 1; // режим відображення (1 - дні/2 - місяці/3 - роки)
+    
     mid_date.addEventListener('click', () => {
         if (mode == 1) {
-            hide_days(); //приховає дні
-            top_month.style.marginBottom = '38px'; //вирівняє верстку
-            show_mid_date(`${year} p.`); //видалить назву місяця
-            show_monthes(); //покаже місяці
+            //Приховує дні
+            hide_days();
+            //Забирає назву місяця з сер.дати
+            show_mid_date(`${year} p.`);
+            //Вирівнює верстку для панелі з кнопками
+            top_month.style.marginTop = '-38px';
+            //Показує місяці
+            show_monthes();
 
             mode++;
         } else if (mode == 2) {
-            hide_monthes(); //приховає місяці
-            show_mid_date("2020-2029"); //змінить рік на всі доступні роки
+            //Приховує місяці
+            hide_monthes();
+            //Змінює рік на доступні з сер.дати
+            show_mid_date('2020-2029');
+            //Показує роки
+            show_years();
 
             mode++;
+        } else if (mode == 3) {
+            //Приховує роки
+            hide_years();
+            //Повертає в назву дату 
+            show_mid_date(`${monthes_2[month]} ${year} p.`);
+            //Вирівнює верстку для панелі з кнопками
+            top_month.style.marginTop = '0';
+            //Показує дні
+            show_days();
+
+            mode = 1;
         }
     });
 }
@@ -243,9 +268,9 @@ function show_years() {
 // ВИКЛИКАНІ ФУНКЦІЇ
 // Оновлює годину та дату кожну секунду
 setInterval(() => {
-    const now = new Date(Date.now());
+    let now = new Date(Date.now());
     show_hour(now);
     show_date(now);
 }, 1000);
-
-switch_view();
+switch_view(); // 2* а цю перед тією , я хз чому)
+add_days(); // 1* цю хуйню викликати треба тільки після верхніх ф-цій

@@ -247,3 +247,49 @@ body {
     border: 2px solid rgb(115, 221, 221); 
     color: rgb(115, 221, 221); 
 }
+
+.years {
+    margin: 0 auto;
+    margin-top: -40px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    color: rgb(219, 210, 210);
+    width: 92%;
+}
+
+.year {
+    margin: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    width: 78px;
+    height: 68px;
+    box-sizing: border-box;
+}
+
+.year:hover {
+    animation: makeBorder 0.4s;
+    border: 2px solid rgb(219, 210, 210);
+}
+
+.year_last {
+    margin: 1px;
+    color: rgba(128, 128, 128, 0.452);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    width: 78px;
+    height: 60px;
+    box-sizing: border-box;
+}
+
+.year_last:hover {
+    animation: makeBorder 0.4s;
+    border: 2px solid rgb(219, 210, 210);
+}
