@@ -8,7 +8,9 @@ const calendar = document.querySelector('.calendar'), // все вікно ка�
     weeks = calendar.querySelector('.calendar_week'), // панель с днями тижня
     top_month = calendar.querySelector('.calendar_month'), // дата над днями + стрілки
     new_monthes = calendar.querySelector('.monthes'), // місяці які заміняють дні
-    new_years = calendar.querySelector('.years'); // роки які заміняють місяці
+    new_years = calendar.querySelector('.years'), // роки які заміняють місяці
+    btn_left = calendar.querySelector('#btn_left'), // ліва стрілка
+    btn_right = calendar.querySelector('#btn_right'); // права стрілка
 
 const monthes_2 = {
     0: "січень",
@@ -84,6 +86,17 @@ function show_date() {
 //ВИВОДИТЬ СЕРЕДНЮ ДАТУ (ПОТРІБНО ДЛЯ ФУНКЦІОНАЛУ КНОПКИ ПІСЛЯ ЗМІНИ РЕЖИМУ ВІДОБРАЖЕННЯ)
 function show_mid_date(a) {
     mid_date.innerHTML = a;
+}
+
+//ПРИХОВУЄ СТРІЛКИ
+function hide_buttons() {
+    btn_left.style.display = 'none';
+    btn_right.style.display = 'none';
+}
+//ПОКАЗУЄ СТРІЛКИ
+function show_buttons() {
+    btn_left.style.display = 'flex';
+    btn_right.style.display = 'flex';
 }
 
 //ПРИХОВУЄ ВСІ ДНІ ТА ПОЗНАЧКИ ДНІВ ТИЖНЯ
@@ -218,6 +231,8 @@ function switch_view() {
 
     mid_date.addEventListener('click', () => {
         if (mode == 1) {
+            //Приховує стрілки
+            hide_buttons();
             //Приховує дні
             hide_days();
             //Забирає назву місяця з сер.дати
@@ -229,6 +244,8 @@ function switch_view() {
 
             mode++;
         } else if (mode == 2) {
+            //Приховує стрілки
+            hide_buttons();
             //Приховує місяці
             hide_monthes();
             //Змінює рік на доступні з сер.дати
@@ -243,6 +260,8 @@ function switch_view() {
 
             mode++;
         } else if (mode == 3) {
+            //Показує стрілки
+            show_buttons();
             //Приховує роки
             hide_years();
             //Повертає в назву дату 

@@ -97,6 +97,8 @@ body {
 
 #btn_date:hover {
     color: white;
+    animation: scale_font;
+    transform: scale(1.1);
 }
 
 #btn_left {
@@ -243,8 +245,14 @@ body {
     height: 30%;
     box-sizing: border-box;
 }
+
 .years::-webkit-scrollbar {
-    width: 1%; /* Ширина скролбару */
+    width: 5px; /* Ширина скролбару */
+}
+.years::-webkit-scrollbar-thumb {
+    background-color: rgb(115, 221, 221);
+    border-radius: 10px;
+    height: 25px;
 }
 
 .year:hover {
