@@ -10,20 +10,20 @@ const calendar = document.querySelector('.calendar'), // все вікно ка�
     new_monthes = calendar.querySelector('.monthes'), // місяці які заміняють дні
     new_years = calendar.querySelector('.years'); // роки які заміняють місяці
 
-    const monthes_2 = {
-        0: "січень",
-        1: "лютий",
-        2: "березень",
-        3: "квітень",
-        4: "травень",
-        5: "червень",
-        6: "липень",
-        7: "серпень",
-        8: "вересень",
-        9: "жовтень",
-        10: "листопад",
-        11: "грудень"
-    }; //(потрібно було вивести сюди для роботи ф-ції show_mid_date)
+const monthes_2 = {
+    0: "січень",
+    1: "лютий",
+    2: "березень",
+    3: "квітень",
+    4: "травень",
+    5: "червень",
+    6: "липень",
+    7: "серпень",
+    8: "вересень",
+    9: "жовтень",
+    10: "листопад",
+    11: "грудень"
+}; //(потрібно було вивести сюди для роботи ф-ції show_mid_date)
 
 //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
 // const now = new Date(Date.now());
@@ -35,8 +35,9 @@ const calendar = document.querySelector('.calendar'), // все вікно ка�
 //     seconds = now.getSeconds();
 
 //ВИВОДИТЬ ГОДИНУ ЗВЕРХУ
-function show_hour(now) {
+function show_hour() {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
+    let now = new Date(Date.now());
     let hours = now.getHours(),
         minutes = now.getMinutes(),
         seconds = now.getSeconds();
@@ -51,8 +52,9 @@ function show_hour(now) {
 }
 
 //ВИВОДИТЬ ДАТУ ЗВЕРХУ
-function show_date(now) {
+function show_date() {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
+    let now = new Date(Date.now());
     let year = now.getFullYear(),
         month = now.getMonth(),
         day = now.getDate();
@@ -74,7 +76,7 @@ function show_date(now) {
     };
 
     //Виводить дату в топі календаря
-    top_date.innerHTML = `${day} ${monthes[month]} ${year} р.`;   
+    top_date.innerHTML = `${day} ${monthes[month]} ${year} р.`;
 }
 
 //ВИВОДИТЬ СЕРЕДНЮ ДАТУ (ПОТРІБНО ДЛЯ ФУНКЦІОНАЛУ КНОПКИ ПІСЛЯ ЗМІНИ РЕЖИМУ ВІДОБРАЖЕННЯ)
@@ -107,7 +109,7 @@ function add_days() {
     show_mid_date(`${monthes_2[month]} ${year} p.`);
 
     //Заповнює календар днями до 42
-    for (let i = 1; i < 43; i++) {
+    for (let i = 1; i <= 35; i++) {
         const day = document.createElement('div');
         day.classList.add('day');
         day.innerHTML = i;
@@ -141,8 +143,6 @@ function add_days() {
             days_all[i].classList.add('day_last');
         }
     }
-
-    top_month.style.marginBottom = '-38px';
 }
 
 //ДОДАЄ МІСЯЦІ
@@ -152,11 +152,11 @@ function add_monthes() {
         month = now.getMonth();
 
     const monthes = [
-        'січ', 'лют', 'бер', 'кві',
-        'тра', 'чер', 'лип', 'сер',
-        'вер', 'жов', 'лис', 'гру'
+        'Січень', 'Лютий', 'Березень', 'Квітень',
+        'Травень', 'Червень', 'Липень', 'Серпень',
+        'Вересень', 'Жовтень', 'Листопад', 'Грудень'
     ];
-    
+
     // Додає перші 12 місяців
     for (let i = 1; i < 13; i++) {
         const month = document.createElement('div');
@@ -165,13 +165,6 @@ function add_monthes() {
         new_monthes.append(month);
     }
 
-    // Додає решту місяців
-    for (let i = 1; i < 5; i++) {
-        const month = document.createElement('div');
-        month.classList.add('month_last');
-        month.innerHTML = monthes[i - 1];
-        new_monthes.append(month);
-    }
 }
 add_monthes(); //викликаємо один раз щоб створити їх
 
@@ -188,23 +181,19 @@ function show_monthes() {
 
 //ДОДАЄ РОКИ
 function add_years() {
-    // Додає перші 10 років
-    for (let i = 2020; i < 2030; i++) {
+    // Теперішні дані по даті
+    let now = new Date(Date.now()),
+        currentYear = now.getFullYear();
+
+    // Додає 100 років назад та 100 років вперед від поточного року
+    for (let i = currentYear - 100; i <= currentYear + 100; i++) {
         const year = document.createElement('div');
         year.classList.add('year');
         year.innerHTML = i;
         new_years.append(year);
     }
-
-    //Додає останні 5 років
-    for (let i = 2030; i < 2036; i++) {
-        const year = document.createElement('div');
-        year.classList.add('year_last');
-        year.innerHTML = i;
-        new_years.append(year);
-    }
-
 }
+
 add_years(); //викликаємо один раз щоб створити їх
 
 //ПРИХОВУЄ РОКИ
@@ -225,7 +214,7 @@ function switch_view() {
         month = now.getMonth(),
         year = now.getFullYear(),
         mode = 1; // режим відображення (1 - дні/2 - місяці/3 - роки)
-    
+
     mid_date.addEventListener('click', () => {
         if (mode == 1) {
             //Приховує дні
@@ -233,7 +222,7 @@ function switch_view() {
             //Забирає назву місяця з сер.дати
             show_mid_date(`${year} p.`);
             //Вирівнює верстку для панелі з кнопками
-            top_month.style.marginTop = '-38px';
+            top_month.style.marginTop = '-12%';
             //Показує місяці
             show_monthes();
 
@@ -242,9 +231,14 @@ function switch_view() {
             //Приховує місяці
             hide_monthes();
             //Змінює рік на доступні з сер.дати
-            show_mid_date('2020-2029');
+            show_mid_date(`${year}`);
             //Показує роки
             show_years();
+            // Прокручує до поточного року
+            const currentYearElement = document.querySelector('.year.current');
+            if (currentYearElement) {
+                currentYearElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
 
             mode++;
         } else if (mode == 3) {
@@ -262,6 +256,7 @@ function switch_view() {
     });
 }
 
+
 //ПРИСВОЮЄ КЛАС CURRENT ПОТОЧНОМУ ДНЮ/МІСЯЦЮ/РОКУ
 function make_current(now) {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
@@ -270,8 +265,8 @@ function make_current(now) {
         year = now.getFullYear();
     // Змінні з псевдо-масивами для днів , місяців та років
     const ds = calendar.querySelectorAll('.day'),
-          ms = calendar.querySelectorAll('.month'),
-          ys = calendar.querySelectorAll('.year');
+        ms = calendar.querySelectorAll('.month'),
+        ys = calendar.querySelectorAll('.year');
 
     //Для днів:
     ds.forEach((e, num) => {
@@ -287,7 +282,7 @@ function make_current(now) {
             e.addEventListener('mouseout', () => {
                 e.style.animation = 'currout 0.4s';
             });
-        //Видаляємо іншим дням клас current
+            //Видаляємо іншим дням клас current
         } else {
             e.classList.remove('current');
         }
@@ -307,7 +302,7 @@ function make_current(now) {
             e.addEventListener('mouseout', () => {
                 e.style.animation = 'currout 0.4s';
             });
-        //Видаляємо іншим місяцям клас current
+            //Видаляємо іншим місяцям клас current
         } else {
             e.classList.remove('current');
         }
@@ -327,7 +322,7 @@ function make_current(now) {
             y.addEventListener('mouseout', () => {
                 y.style.animation = 'currout 0.4s';
             });
-        //Видаляємо іншим рокам клас current
+            //Видаляємо іншим рокам клас current
         } else {
             y.classList.remove('current');
         }

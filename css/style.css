@@ -95,10 +95,6 @@ body {
     padding: 0;
 }
 
-#btn_date {
-    margin-left : 4px;
-}
-
 #btn_date:hover {
     color: white;
 }
@@ -143,13 +139,11 @@ body {
 }
 
 .days {
-    margin: 0 auto;
-    padding: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     color: rgb(219, 210, 210);
-    width: 92%;
+    width: 100%;
 }
 
 .day {
@@ -160,58 +154,12 @@ body {
     padding: 10px;
     font-size: 16px;
     width: 44px;
-    height: 37px;
+    height: 50px;
     box-sizing: border-box;
-}
-
-.monthes {
-    margin: 0 auto;
-    margin-top: -40px;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    color: rgb(219, 210, 210);
-    width: 92%;
-}
-
-.month {
-    margin: 1px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    font-size: 16px;
-    width: 78px;
-    height: 68px;
-    box-sizing: border-box;
-}
-
-.month:hover {
-    animation: makeBorder 0.4s;
-    border: 2px solid rgb(219, 210, 210);
-}
-
-.month_last {
-    margin: 1px;
-    color: rgba(128, 128, 128, 0.452);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    font-size: 16px;
-    width: 78px;
-    height: 60px;
-    box-sizing: border-box;
-}
-
-.month_last:hover {
-    animation: makeBorder 0.4s;
-    border: 2px solid rgb(219, 210, 210);
 }
 
 .day_last {
-    color: rgba(128, 128, 128, 0.452);
+    color: gray;
     margin: 1px;
     display: flex;
     justify-content: center;
@@ -219,16 +167,11 @@ body {
     padding: 10px;
     font-size: 16px;
     width: 44px;
-    height: 37px;
+    height: 50px;
     box-sizing: border-box;
 }
 
 .day:hover {
-    animation: makeBorder 0.4s;
-    border: 2px solid rgb(219, 210, 210);
-}
-
-.day_last:hover {
     animation: makeBorder 0.4s;
     border: 2px solid rgb(219, 210, 210);
 }
@@ -242,84 +185,55 @@ body {
         border: 2px solid rgb(219, 210, 210);
     }
 }
-
-.years {
-    margin: 0 auto;
-    margin-top: -40px;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    color: rgb(219, 210, 210);
-    width: 92%;
-}
-
-.year {
-    margin: 1px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    font-size: 16px;
-    width: 78px;
-    height: 68px;
-    box-sizing: border-box;
-}
-
-.year:hover {
-    animation: makeBorder 0.4s;
-    border: 2px solid rgb(219, 210, 210);
-}
-
-.year_last {
-    margin: 1px;
-    color: rgba(128, 128, 128, 0.452);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    font-size: 16px;
-    width: 78px;
-    height: 60px;
-    box-sizing: border-box;
-}
-
-.year_last:hover {
-    animation: makeBorder 0.4s;
-    border: 2px solid rgb(219, 210, 210);
-}
-
 .current {
-    animation: none;
     background-color: rgb(37, 36, 36);
-    border: 2px solid #73dddd; 
+    border: 2px solid rgb(115, 221, 221); 
     color: rgb(115, 221, 221); 
 }
-
-.current:hover {
-    border: 2px solid rgb(115, 221, 221); 
-    background-color: rgb(115, 221, 221); 
-    color: white;
+.monthes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: 55%;
+    color: #857979;
+    margin-top: -20px;
 }
 
-@keyframes currin {
-    0%{
-        color: rgb(115, 221, 221); 
-        background-color: rgb(37, 36, 36);
-    }
-    100%{
-        color: white;
-        background-color: rgb(115, 221, 221); 
-    }
+.month {
+    width: 30%; 
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px;
+    border: 1px solid;
 }
 
-@keyframes currout {
-    0%{
-        color: white; 
-        background-color: rgb(115, 221, 221);
-    }
-    100%{
-        color: rgb(115, 221, 221); 
-        background-color: rgb(37, 36, 36); 
-    }
+.years {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #857979;
+    overflow-y: auto;
+    max-height: 275px; 
+    margin-top: -20px;
+}
+
+.year, .year_last {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-basis: 30%;
+    margin: 3px;
+    border: 1px solid;
+    height: 30%;
+}
+.years::-webkit-scrollbar {
+    width: 1px; /* Ширина скролбару */
 }
