@@ -172,11 +172,7 @@ body {
         border: 2px solid rgb(219, 210, 210);
     }
 }
-.current {
-    background-color: rgb(37, 36, 36);
-    border: 2px solid rgb(115, 221, 221); 
-    color: rgb(115, 221, 221); 
-}
+
 .monthes {
     display: flex;
     flex-wrap: wrap;
@@ -253,4 +249,26 @@ body {
     height: 1px;
     background-color: #857979;
     position: absolute;
+}
+
+.current {
+    background-color: rgb(37, 36, 36);
+    border: 2px solid rgb(115, 221, 221); 
+    color: rgb(115, 221, 221); 
+}
+
+.current:hover {
+    color: white;
+    animation: curr_border 0.3s;
+    border: 2px solid white;
+}
+
+@keyframes curr_border {
+    0%{
+        border: 2px solid rgb(115, 221, 221); 
+    }
+
+    100%{
+        border: 2px solid white; 
+    }
 }
