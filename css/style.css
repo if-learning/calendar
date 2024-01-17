@@ -173,8 +173,9 @@ body {
 }
 
 .day:hover {
-    animation: makeBorder 0.4s;
+    animation: makeBorder 0.4s, font_scale;
     border: 2px solid rgb(219, 210, 210);
+    font-size: 18px;
 }
 
 @keyframes makeBorder {
@@ -202,14 +203,22 @@ body {
 }
 
 .month {
-    width: 30%; 
+    width: 30%;
+    height: 25%; 
     box-sizing: border-box;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 3px;
-    border: 1px solid;
+    margin: 2px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.month:hover {
+    animation: makeBorder 0.4s, font_scale;
+    border: 2px solid rgb(219, 210, 210);
+    font-size: 18px;
 }
 
 .years {
@@ -229,12 +238,37 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
     flex-basis: 30%;
     margin: 3px;
-    border: 1px solid;
     height: 30%;
+    box-sizing: border-box;
 }
 .years::-webkit-scrollbar {
     width: 1%; /* Ширина скролбару */
+}
+
+.year:hover {
+    animation: makeBorder 0.4s, font_scale;
+    border: 2px solid rgb(219, 210, 210);
+    font-size: 18px;
+}
+
+.line {
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+    width: 350px;
+    height: 1px;
+    background-color: #857979;
+    position: absolute;
+}
+
+@keyframes font_scale {
+    0%{
+        font-size: 16px;
+    }
+    
+    100%{
+        font-size: 18px;
+    }
 }

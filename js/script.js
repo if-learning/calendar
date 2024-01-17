@@ -25,6 +25,8 @@ const monthes_2 = {
     11: "грудень"
 }; //(потрібно було вивести сюди для роботи ф-ції show_mid_date)
 
+let mode = 1; // режим відображення (1 - дні/2 - місяці/3 - роки)
+
 //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
 // const now = new Date(Date.now());
 // let year = now.getFullYear(),
@@ -212,8 +214,7 @@ function switch_view() {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
     let now = new Date(Date.now()),
         month = now.getMonth(),
-        year = now.getFullYear(),
-        mode = 1; // режим відображення (1 - дні/2 - місяці/3 - роки)
+        year = now.getFullYear();
 
     mid_date.addEventListener('click', () => {
         if (mode == 1) {
@@ -231,7 +232,7 @@ function switch_view() {
             //Приховує місяці
             hide_monthes();
             //Змінює рік на доступні з сер.дати
-            show_mid_date(`${year}`);
+            show_mid_date(`${year - 4} - ${year + 4}`);
             //Показує роки
             show_years();
             // Прокручує до поточного року
@@ -273,15 +274,6 @@ function make_current(now) {
         if (num == day - 1) {
             //Додаємо поточному дню клас current
             e.classList.add('current');
-            //Фікс анімації
-            e.style.animation = 'none';
-            //Додаємо анімації
-            e.addEventListener('mouseover', () => {
-                e.style.animation = 'currin 0.4s';
-            });
-            e.addEventListener('mouseout', () => {
-                e.style.animation = 'currout 0.4s';
-            });
             //Видаляємо іншим дням клас current
         } else {
             e.classList.remove('current');
@@ -293,15 +285,6 @@ function make_current(now) {
         if (num == month) {
             //Додаємо поточному місяцю клас current
             e.classList.add('current');
-            //Фікс анімації
-            e.style.animation = 'none';
-            //Додаємо анімації
-            e.addEventListener('mouseover', () => {
-                e.style.animation = 'currin 0.4s';
-            });
-            e.addEventListener('mouseout', () => {
-                e.style.animation = 'currout 0.4s';
-            });
             //Видаляємо іншим місяцям клас current
         } else {
             e.classList.remove('current');
@@ -313,15 +296,6 @@ function make_current(now) {
         if (y.innerHTML.includes(year)) {
             //Додаємо поточному року клас current
             y.classList.add('current');
-            //Фікс анімації
-            y.style.animation = 'none';
-            //Додаємо анімації
-            y.addEventListener('mouseover', () => {
-                y.style.animation = 'currin 0.4s';
-            });
-            y.addEventListener('mouseout', () => {
-                y.style.animation = 'currout 0.4s';
-            });
             //Видаляємо іншим рокам клас current
         } else {
             y.classList.remove('current');
