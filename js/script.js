@@ -297,7 +297,7 @@ function make_current(now) {
 }
 
 //ФУНКЦІОНАЛ ДЛЯ РЕЖИМУ ПЕРЕГЛЯДУ РОКІВ
-function choose_year() {
+function choose_year(scroll) {
     let now = new Date(Date.now()),
         year = now.getFullYear();
     //Беремо всі роки і додаємо їм івент при натисканні
@@ -316,7 +316,35 @@ function choose_year() {
             mode = 2;
         });
     });
+    //Додаємо функціонал стрілкам
+    //ліва
+    btn_left.addEventListener('mousedown', () => {
+        if (mode == 3) {
+            const a = setInterval(() => {
+                new_years.scrollTop -= 2;
+            }, 1);
+            btn_left.addEventListener('mouseup', () => {
+                clearInterval(a);
+            });
+        }
+    });
+    //права
+    btn_right.addEventListener('mousedown', () => {
+        if (mode == 3) {
+            const b = setInterval(() => {
+                new_years.scrollTop += 2;
+            }, 1);
+            btn_right.addEventListener('mouseup', () => {
+                clearInterval(b);
+            });
+        }
+    });
 }
+
+//[MODE CHECK]
+setInterval(() => {
+    console.log(`mode = ${mode}`);
+}, 10);
 
 // ВИКЛИКАНІ ФУНКЦІЇ
 // Оновлює годину та дату кожну секунду
@@ -329,3 +357,4 @@ setInterval(() => {
 switch_view();
 choose_year();
 add_days(); // цю херню треба викликати після інших
+
