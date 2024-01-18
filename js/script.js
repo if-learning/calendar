@@ -87,18 +87,6 @@ function show_date() {
 function show_mid_date(a) {
     mid_date.innerHTML = a;
 }
-
-//ПРИХОВУЄ СТРІЛКИ
-function hide_buttons() {
-    btn_left.style.display = 'none';
-    btn_right.style.display = 'none';
-}
-//ПОКАЗУЄ СТРІЛКИ
-function show_buttons() {
-    btn_left.style.display = 'flex';
-    btn_right.style.display = 'flex';
-}
-
 //ПРИХОВУЄ ВСІ ДНІ ТА ПОЗНАЧКИ ДНІВ ТИЖНЯ
 function hide_days() {
     days.style.display = 'none';
@@ -231,8 +219,6 @@ function switch_view() {
 
     mid_date.addEventListener('click', () => {
         if (mode == 1) {
-            //Приховує стрілки
-            hide_buttons();
             //Приховує дні
             hide_days();
             //Забирає назву місяця з сер.дати
@@ -244,8 +230,6 @@ function switch_view() {
 
             mode++;
         } else if (mode == 2) {
-            //Приховує стрілки
-            hide_buttons();
             //Приховує місяці
             hide_monthes();
             //Змінює рік на доступні з сер.дати
@@ -261,8 +245,6 @@ function switch_view() {
 
             mode++;
         } else if (mode == 3) {
-            //Показує стрілки
-            show_buttons();
             //Приховує роки
             hide_years();
             //Повертає в назву дату 
