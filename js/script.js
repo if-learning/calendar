@@ -29,15 +29,6 @@ const monthes_2 = {
 
 let mode = 1; // режим відображення (1 - дні/2 - місяці/3 - роки)
 
-//ТЕПЕРІШНІ ДАНІ ПО ДАТІ
-// const now = new Date(Date.now());
-// let year = now.getFullYear(),
-//     month = now.getMonth(),
-//     day = now.getDay(),
-//     hours = now.getHours(),
-//     minutes = now.getMinutes(),
-//     seconds = now.getSeconds();
-
 //ВИВОДИТЬ ГОДИНУ ЗВЕРХУ
 function show_hour() {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
@@ -305,6 +296,30 @@ function make_current(now) {
     });
 }
 
+//ФУНКЦІОНАЛ ДЛЯ РЕЖИМУ ПЕРЕГЛЯДУ РОКІВ
+function choose_year() {
+    let now = new Date(Date.now()),
+        year = now.getFullYear();
+
+    calendar.querySelectorAll('.year').forEach((y, n) => {
+        y.addEventListener('click', () => {
+            hide_years();
+            show_monthes();
+
+            if (100 > n) {
+                show_mid_date(`${year - (100 - n)} p.`);
+            } else if (100 < n) {
+                show_mid_date(`${year + (n - 100)} p.`);
+            }
+
+            const a = 0;
+
+            mode = 2;
+        });
+    });
+} // !? Як зробити так , щоб не показувався теперішній місяць,
+  // адже він оновлюється кожної секунди додаючи клас ці стилями !?
+
 // ВИКЛИКАНІ ФУНКЦІЇ
 // Оновлює годину та дату кожну секунду
 setInterval(() => {
@@ -314,4 +329,5 @@ setInterval(() => {
     make_current(now);
 }, 1000);
 switch_view();
+choose_year();
 add_days(); // цю херню треба викликати після інших
