@@ -297,7 +297,7 @@ function make_current(now) {
 }
 
 //ФУНКЦІОНАЛ ДЛЯ РЕЖИМУ ПЕРЕГЛЯДУ РОКІВ
-function choose_year(scroll) {
+function choose_year() {
     let now = new Date(Date.now()),
         year = now.getFullYear();
     //Беремо всі роки і додаємо їм івент при натисканні
