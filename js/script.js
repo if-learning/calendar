@@ -249,11 +249,8 @@ function switch_view() {
             //Приховує місяці
             hide_monthes();
             //Змінює рік на доступні з сер.дати
-<<<<<<< Updated upstream
             show_mid_date(`${year - 4} - ${year + 4}`);
-=======
             show_mid_date(`${year} p.`);
->>>>>>> Stashed changes
             //Показує роки
             show_years();
             // Прокручує до поточного року
