@@ -249,7 +249,11 @@ function switch_view() {
             //Приховує місяці
             hide_monthes();
             //Змінює рік на доступні з сер.дати
+<<<<<<< Updated upstream
             show_mid_date(`${year - 4} - ${year + 4}`);
+=======
+            show_mid_date(`${year} p.`);
+>>>>>>> Stashed changes
             //Показує роки
             show_years();
             // Прокручує до поточного року
@@ -265,7 +269,7 @@ function switch_view() {
             //Приховує роки
             hide_years();
             //Повертає в назву дату 
-            show_mid_date(`${monthes_2[month]} ${year} p.`);
+            show_mid_date(`${monthes_2[month]} ${year}p.`);
             //Вирівнює верстку для панелі з кнопками
             top_month.style.marginTop = '0';
             //Показує дні
