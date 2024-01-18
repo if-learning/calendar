@@ -275,7 +275,7 @@ function make_current(now) {
 
     //Для місяців:
     ms.forEach((e, num) => {
-        if (num == month) {
+        if (num == month && mid_date.innerHTML == `${year} p.`) {
             //Додаємо поточному місяцю клас current
             e.classList.add('current');
             //Видаляємо іншим місяцям клас current
@@ -300,25 +300,23 @@ function make_current(now) {
 function choose_year() {
     let now = new Date(Date.now()),
         year = now.getFullYear();
-
+    //Беремо всі роки і додаємо їм івент при натисканні
     calendar.querySelectorAll('.year').forEach((y, n) => {
         y.addEventListener('click', () => {
+            //Приховуємо роки та показуємо місяці
             hide_years();
             show_monthes();
-
+            //Виводимо вибраний рік в кнопку над місяцями
             if (100 > n) {
                 show_mid_date(`${year - (100 - n)} p.`);
             } else if (100 < n) {
                 show_mid_date(`${year + (n - 100)} p.`);
             }
-
-            const a = 0;
-
+            //Переводимо у відповідний режим перегляду
             mode = 2;
         });
     });
-} // !? Як зробити так , щоб не показувався теперішній місяць,
-  // адже він оновлюється кожної секунди додаючи клас ці стилями !?
+}
 
 // ВИКЛИКАНІ ФУНКЦІЇ
 // Оновлює годину та дату кожну секунду
@@ -327,7 +325,7 @@ setInterval(() => {
     show_hour(now);
     show_date(now);
     make_current(now);
-}, 1000);
+}, 10);
 switch_view();
 choose_year();
 add_days(); // цю херню треба викликати після інших
