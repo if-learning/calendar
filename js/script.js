@@ -449,12 +449,12 @@ function choose_days() {
             calendar.querySelectorAll('.day').forEach(d => {
                 d.remove();
             });
-            //Збільшуємо змінну з вибраним місяцем
-            if (selected_month < 11) {
-                selected_month++;
+            //Зменшуємо змінну з вибраним місяцем
+            if (selected_month > 0) {
+                selected_month--;
             } else {
-                selected_month = 0;
-                selected_year++;
+                selected_month = 11;
+                selected_year--;
             }
             //Додаємо дні 
             add_days(selected_month, selected_year);
@@ -470,12 +470,12 @@ function choose_days() {
             calendar.querySelectorAll('.day').forEach(d => {
                 d.remove();
             });
-            //Зменшуємо змінну з вибраним місяцем
-            if (selected_month > 0) {
-                selected_month--;
+            //Збільшуємо змінну з вибраним місяцем
+            if (selected_month < 11) {
+                selected_month++;
             } else {
-                selected_month = 11;
-                selected_year--;
+                selected_month = 0;
+                selected_year++;
             }
             //Додаємо дні 
             add_days(selected_month, selected_year);
