@@ -87,6 +87,7 @@ function hide_days() {
 }
 //ПОКАЗУЄ ВСІ ДНІ ТА ПОЗНАЧКИ ДНІВ ТИЖНЯ
 function show_days() {
+    days.classList.add('appear');
     days.style.display = 'flex';
     weeks.style.display = 'flex';
     //Підганяє верстку
@@ -103,6 +104,7 @@ function add_days(month, year) {
     for (let i = 1; i <= 35; i++) {
         const day = document.createElement('div');
         day.classList.add('day');
+        day.classList.add('appear');
         day.innerHTML = i;
         days.append(day);
     }
@@ -182,14 +184,14 @@ function add_monthes() {
         'Вересень', 'Жовтень', 'Листопад', 'Грудень'
     ];
 
-    // Додає перші 12 місяців
+    // Додає місяці
     for (let i = 1; i < 13; i++) {
         const month = document.createElement('div');
         month.classList.add('month');
+        month.classList.add('appear');
         month.innerHTML = monthes[i - 1];
         new_monthes.append(month);
     }
-
 }
 add_monthes(); //викликаємо один раз щоб створити їх
 
@@ -201,6 +203,7 @@ hide_monthes(); //приховуємо одразу щоб були дні
 
 //ПОКАЗУЄ МІСЯЦІ
 function show_monthes() {
+    new_monthes.classList.add('appear');
     new_monthes.style.display = 'flex';
 }
 
@@ -214,6 +217,7 @@ function add_years() {
     for (let i = currentYear - 100; i <= currentYear + 100; i++) {
         const year = document.createElement('div');
         year.classList.add('year');
+        year.classList.add('appear');
         year.innerHTML = i;
         new_years.append(year);
     }
@@ -229,6 +233,7 @@ hide_years(); //приховуємо одразу щоб були дні
 
 //ПОКАЗУЄ РОКИ
 function show_years() {
+    new_years.classList.add('appear');
     new_years.style.display = 'flex';
 }
 
