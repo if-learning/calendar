@@ -25,9 +25,11 @@ const monthes_2 = {
     9: "жовтень",
     10: "листопад",
     11: "грудень"
-}; //(потрібно було вивести сюди для роботи ф-ції show_mid_date)
+}; //(потрібно було вивести сюди для роботи деяких функцій)
 
 let mode = 1; // режим відображення (1 - дні/2 - місяці/3 - роки)
+let selected_month = new Date(Date.now()).getMonth(), // вибраний місяць (для choose_days())
+    selected_year = new Date(Date.now()).getFullYear(); // вибраний рік (для choose_days())
 
 //ВИВОДИТЬ ГОДИНУ ЗВЕРХУ
 function show_hour() {
@@ -266,6 +268,10 @@ function switch_view() {
             //Показує дні
             show_days();
 
+            //Повертаємо в змінні поточні дати
+            selected_month = new Date(Date.now()).getMonth();
+            selected_year = new Date(Date.now()).getFullYear();
+
             mode = 1;
         }
     });
@@ -330,9 +336,15 @@ function choose_year() {
             //Виводимо вибраний рік в кнопку над місяцями
             if (100 > n) {
                 show_mid_date(`${year - (100 - n)} p.`);
+                //передаємо вибраний рік у змінну 
+                selected_year = year - (100 - n);
             } else if (100 < n) {
                 show_mid_date(`${year + (n - 100)} p.`);
+                //передаємо вибраний рік у змінну 
+                selected_year = year + (n - 100);
             }
+
+            console.log(selected_year);
             //Переводимо у відповідний режим перегляду
             mode = 2;
         });
@@ -419,9 +431,57 @@ function choose_month() {
             //Змінюємо дату над днями відповідно вибраного місяця і року
             show_mid_date(`${monthes_2[n]} ${mid_date.innerHTML.slice(0, 4)} p.`);
 
+            //Передаємо вибраний місяць у змінну
+            selected_month = n;
+
             //Переводимо у відповідний режим перегляду
             mode = 1;
         });
+    });
+}
+
+//ФУНКЦІОНАЛ ДЛЯ РЕЖИМУ ПЕРЕГЛЯДУ ДНІВ 
+function choose_days() {
+    //Для лівої стрілки
+    btn_left.addEventListener('click', () => {
+        if (mode == 1) {
+            //Видаляємо дні 
+            calendar.querySelectorAll('.day').forEach(d => {
+                d.remove();
+            });
+            //Збільшуємо змінну з вибраним місяцем
+            if (selected_month < 11) {
+                selected_month++;
+            } else {
+                selected_month = 0;
+                selected_year++;
+            }
+            //Додаємо дні 
+            add_days(selected_month, selected_year);
+            //Змінюємо дату над днями відповідно вибраного місяця і року
+            show_mid_date(`${monthes_2[selected_month]} ${selected_year} p.`);
+        }
+    });
+
+    //Для правої стрілки
+    btn_right.addEventListener('click', () => {
+        if (mode == 1) {
+            //Видаляємо дні 
+            calendar.querySelectorAll('.day').forEach(d => {
+                d.remove();
+            });
+            //Зменшуємо змінну з вибраним місяцем
+            if (selected_month > 0) {
+                selected_month--;
+            } else {
+                selected_month = 11;
+                selected_year--;
+            }
+            //Додаємо дні 
+            add_days(selected_month, selected_year);
+            //Змінюємо дату над днями відповідно вибраного місяця і року
+            show_mid_date(`${monthes_2[selected_month]} ${selected_year} p.`);
+        }
     });
 }
 
@@ -444,6 +504,8 @@ show_mid_date(`${monthes_2[new Date(Date.now()).getMonth()]} ${new Date(Date.now
 add_days(new Date(Date.now()).getMonth(), new Date(Date.now()).getFullYear());
 // Дозволяє змінювати режими перегляду
 switch_view();
+// Дозволяє працювати стрілкам в режимі перегляду днів
+choose_days();
 // Дозволяє вибирати місяць
 choose_month();
 // Дозволяє вибирати рік
