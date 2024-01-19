@@ -109,14 +109,14 @@ function add_days(month, year) {
 
     //Масив зі всіма днями
     let days_all = document.querySelectorAll('.day');
-    
+
     // Визначає кількість днів у лютому
     let is_leap = year % 4 == 0,
-        daysInFebruary = 0;
+        days_in_february = 0;
     if (is_leap) {
-        daysInFebruary = 29;
+        days_in_february = 29;
     } else {
-        daysInFebruary = 28;
+        days_in_february = 28;
     }
 
     days_all.forEach((day, n) => {
@@ -129,10 +129,10 @@ function add_days(month, year) {
             }
             
         } else if (month == 1) {
-            if (n < daysInFebruary) {
+            if (n < days_in_february) {
                 day.innerHTML = n + 1;
             } else {
-                day.innerHTML = n - (daysInFebruary - 1);
+                day.innerHTML = n - (days_in_february - 1);
                 day.classList.add('day_last');
             }
         } else {
@@ -516,4 +516,3 @@ choose_days();
 choose_month();
 // Дозволяє вибирати рік
 choose_year();
-
