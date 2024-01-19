@@ -390,37 +390,37 @@ function choose_year() {
 //ФУНКЦІОНАЛ ДЛЯ РЕЖИМУ ПЕРЕГЛЯДУ МІСЯЦІВ
 function choose_month() {
     //Перемикання років стрілками
-    //ліва з утриманням
-    btn_left.addEventListener('mousedown', () => {
+    //права з утриманням
+    btn_right.addEventListener('mousedown', () => {
         if (mode == 2) {
             const a = setInterval(() => {
                 mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) + 1} p.`;
             }, 100);
-            btn_left.addEventListener('mouseup', () => {
-                clearInterval(a);
-            });
-        }
-    });
-    //ліва на клік
-    btn_left.addEventListener('click', () => {
-        if (mode == 2) {
-            mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) + 1} p.`;
-
-        }
-    });
-    //права з утриманням
-    btn_right.addEventListener('mousedown', () => {
-        if (mode == 2) {
-            const b = setInterval(() => {
-                mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) - 1} p.`;
-            }, 99);
             btn_right.addEventListener('mouseup', () => {
-                clearInterval(b);
+                clearInterval(a);
             });
         }
     });
     //права на клік
     btn_right.addEventListener('click', () => {
+        if (mode == 2) {
+            mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) + 1} p.`;
+
+        }
+    });
+    //ліва з утриманням
+    btn_left.addEventListener('mousedown', () => {
+        if (mode == 2) {
+            const b = setInterval(() => {
+                mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) - 1} p.`;
+            }, 99);
+            btn_left.addEventListener('mouseup', () => {
+                clearInterval(b);
+            });
+        }
+    });
+    //ліва на клік
+    btn_left.addEventListener('click', () => {
         if (mode == 2) {
             mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) - 1} p.`;
         }
