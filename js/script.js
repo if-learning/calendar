@@ -493,6 +493,32 @@ function choose_days() {
     });
 }
 
+function mouse_off_anims(days, monthes, years) {
+    days.forEach(d => {
+        if (!d.classList.includes('current')) {
+            d.addEventListener('mouseout', () => {
+                d.classList.add('mouseoff');
+            });
+        }
+    });
+
+    monthes.forEach(m => {
+        if (!m.classList.includes('current')) {
+            m.addEventListener('mouseout', () => {
+                m.classList.add('mouseoff');
+            });
+        }
+    });
+
+    years.forEach(y => {
+        if (!y.classList.includes('current')) {
+            y.addEventListener('mouseout', () => {
+                y.classList.add('mouseoff');
+            });
+        }
+    });
+}  
+
 //[MODE CHECK]
 setInterval(() => {
     console.log(`mode = ${mode}`);
@@ -518,3 +544,5 @@ choose_days();
 choose_month();
 // Дозволяє вибирати рік
 choose_year();
+
+mouse_off_anims(calendar.querySelectorAll('.day'), calendar.querySelectorAll('.month'), calendar.querySelectorAll('.year'));

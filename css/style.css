@@ -252,9 +252,8 @@ body {
 }
 
 .current {
-    background-color: rgb(37, 36, 36);
     border: 2px solid rgb(115, 221, 221); 
-    color: rgb(115, 221, 221); 
+    color:rgb(115, 221, 221);
 }
 
 .current:hover {
@@ -270,5 +269,19 @@ body {
 
     100%{
         border: 2px solid white; 
+    }
+}
+
+.mouseoff {
+    animation: msoff 0.2s;
+}
+
+@keyframes msoff {
+    0%{
+        border: 2px solid white;
+    }
+
+    100%{
+        border: none;
     }
 }
