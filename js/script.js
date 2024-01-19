@@ -109,9 +109,15 @@ function add_days(month, year) {
 
     //Масив зі всіма днями
     let days_all = document.querySelectorAll('.day');
-    //Визначає кількість днів у лютому враховуючи високосний рік
-    const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-    const daysInFebruary = isLeapYear(now.getFullYear()) ? 29 : 28;
+    
+    // Визначає кількість днів у лютому
+    let is_leap = year % 4 == 0,
+        daysInFebruary = 0;
+    if (is_leap) {
+        daysInFebruary = 29;
+    } else {
+        daysInFebruary = 28;
+    }
 
     days_all.forEach((day, n) => {
         if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
@@ -458,7 +464,7 @@ function choose_days() {
             }
             //Додаємо дні 
             add_days(selected_month, selected_year);
-            //Змінюємо дату над днями відповідно вибраного місяця і року
+            // дату над днями відповідно вибраного місяця і року
             show_mid_date(`${monthes_2[selected_month]} ${selected_year} p.`);
         }
     });
