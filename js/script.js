@@ -270,7 +270,7 @@ function switch_view() {
             //Приховує роки
             hide_years();
             //Повертає в назву дату 
-            show_mid_date(`${monthes_2[month]} ${year}p.`);
+            show_mid_date(`${monthes_2[month]} ${year} p.`);
             //Вирівнює верстку для панелі з кнопками
             top_month.style.marginTop = '0';
             //Показує дні
