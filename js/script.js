@@ -92,12 +92,10 @@ function show_days() {
 }
 
 //ДОДАЄ ДНІ
-function add_days() {
+function add_days(month, year) {
     //ТЕПЕРІШНІ ДАНІ ПО ДАТІ
     let now = new Date(Date.now());
-    let month = now.getMonth();
     let dayOfMonth = now.getDate();
-    let year = now.getFullYear();
 
     //Викликає ф-цію яка виводить дату над днями
     show_mid_date(`${monthes_2[month]} ${year} p.`);
@@ -111,32 +109,58 @@ function add_days() {
     }
 
     //Масив зі всіма днями
-    const days_all = calendar.querySelectorAll('.day');
-
+    let days_all = document.querySelectorAll('.day');
     //Визначає кількість днів у лютому враховуючи високосний рік
     const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
     const daysInFebruary = isLeapYear(now.getFullYear()) ? 29 : 28;
 
-    //Редагує зайві дні 
-    if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
-        for (let i = 31; i < 43; i++) {
-            days_all[i].innerHTML = i - 30;
-            days_all[i].classList.remove('day');
-            days_all[i].classList.add('day_last');
+    days_all.forEach((day, n) => {
+        if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
+            if (n < 31) {
+                day.innerHTML = n + 1;
+            } else {
+                day.innerHTML = n - 30;
+                day.classList.add('day_last');
+            }
+            
+        } else if (month == 1) {
+            if (n < daysInFebruary) {
+                day.innerHTML = n + 1;
+            } else {
+                day.innerHTML = n - (daysInFebruary - 1);
+                day.classList.add('day_last');
+            }
+        } else {
+            if (n < 30) {
+                day.innerHTML = n + 1;
+            } else {
+                day.innerHTML = n - (29 - 1);
+                day.classList.add('day_last');
+            }
         }
-    } else if (month == 1) {
-        for (let i = 29; i < 43; i++) {
-            days_all[i].innerHTML = i - (31 - daysInFebruary);
-            days_all[i].classList.remove('day');
-            days_all[i].classList.add('day_last');
-        }
-    } else {
-        for (let i = 30; i < 43; i++) {
-            days_all[i].innerHTML = i - (30 - daysInFebruary);
-            days_all[i].classList.remove('day');
-            days_all[i].classList.add('day_last');
-        }
-    }
+    });
+
+    // ТЕ , ЩО БУЛО НЕПРАВИЛЬНИМ І ВИДАВАЛО ПОМИЛКУ
+    // //Редагує зайві дні 
+    // if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
+    //     for (let i = 31; i < 43; i++) {
+    //         days_all[i].innerHTML = i - 30;
+    //         days_all[i].classList.remove('day');
+    //         days_all[i].classList.add('day_last');
+    //     }
+    // } else if (month == 1) {
+    //     for (let i = 29; i < 43; i++) {
+    //         days_all[i].innerHTML = i - (31 - daysInFebruary);
+    //         days_all[i].classList.remove('day');
+    //         days_all[i].classList.add('day_last');
+    //     }
+    // } else {
+    //     for (let i = 30; i < 43; i++) {
+    //         days_all[i].innerHTML = i - (30 - daysInFebruary);
+    //         days_all[i].classList.remove('day');
+    //         days_all[i].classList.add('day_last');
+    //     }
+    // }
 }
 
 //ДОДАЄ МІСЯЦІ
@@ -341,6 +365,60 @@ function choose_year() {
     });
 }
 
+//ФУНКЦІОНАЛ ДЛЯ РЕЖИМУ ПЕРЕГЛЯДУ МІСЯЦІВ
+function choose_month() {
+    //Перемикання років стрілками
+    //ліва з утриманням
+    btn_left.addEventListener('mousedown', () => {
+        if (mode == 2) {
+            const a = setInterval(() => {
+                mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) + 1} p.`;
+            }, 100);
+            btn_left.addEventListener('mouseup', () => {
+                clearInterval(a);
+            });
+        }
+    });
+    //ліва на клік
+    btn_left.addEventListener('click', () => {
+        if (mode == 2) {
+            mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) + 1} p.`;
+
+        }
+    });
+    //права з утриманням
+    btn_right.addEventListener('mousedown', () => {
+        if (mode == 2) {
+            const b = setInterval(() => {
+                mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) - 1} p.`;
+            }, 99);
+            btn_right.addEventListener('mouseup', () => {
+                clearInterval(b);
+            });
+        }
+    });
+    //права на клік
+    btn_right.addEventListener('click', () => {
+        if (mode == 2) {
+            mid_date.innerHTML = `${(Number(mid_date.innerHTML.slice(0,4))) - 1} p.`;
+        }
+    });
+
+    //Додаємо вибір місяця по кліку на його назву
+    calendar.querySelectorAll('.month').forEach((m, n) => {
+        m.addEventListener('click', () => {
+            //Приховуємо місяці
+            hide_monthes();
+            //Підганяємо верстку
+            top_month.style.marginTop = '0';
+            //Видаляємо старі дні
+           
+            //Переводимо у відповідний режим перегляду
+            mode = 1;
+        });
+    });
+}
+
 //[MODE CHECK]
 setInterval(() => {
     console.log(`mode = ${mode}`);
@@ -354,7 +432,12 @@ setInterval(() => {
     show_date(now);
     make_current(now);
 }, 10);
+// Додає дні для актуальної дати
+add_days(new Date(Date.now()).getMonth(), new Date(Date.now()).getFullYear()); // цю херню треба викликати після інших
+// Дозволяє змінювати режими перегляду
 switch_view();
+// Дозволяє вибирати місяць
+choose_month();
+// Дозволяє вибирати рік
 choose_year();
-add_days(); // цю херню треба викликати після інших
 
