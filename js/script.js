@@ -119,6 +119,7 @@ function add_days(month, year) {
         days_in_february = 28;
     }
 
+    //Редагує зайві дні
     days_all.forEach((day, n) => {
         if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
             if (n < 31) {
@@ -146,6 +147,7 @@ function add_days(month, year) {
     });
 
     // ТЕ , ЩО БУЛО НЕПРАВИЛЬНИМ І ВИДАВАЛО ПОМИЛКУ
+    //(видали потім як повтикаєш)
     // //Редагує зайві дні 
     // if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
     //     for (let i = 31; i < 43; i++) {
