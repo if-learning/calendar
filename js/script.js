@@ -97,9 +97,6 @@ function add_days(month, year) {
     let now = new Date(Date.now());
     let dayOfMonth = now.getDate();
 
-    //Викликає ф-цію яка виводить дату над днями
-    show_mid_date(`${monthes_2[month]} ${year} p.`);
-
     //Заповнює календар днями до 42
     for (let i = 1; i <= 35; i++) {
         const day = document.createElement('div');
@@ -288,7 +285,7 @@ function make_current(now) {
 
     //Для днів:
     ds.forEach((e, num) => {
-        if (num == day - 1) {
+        if (num == day - 1 && mid_date.innerHTML == `${monthes_2[month]} ${year} p.`) {
             //Додаємо поточному дню клас current
             e.classList.add('current');
             //Видаляємо іншим дням клас current
@@ -409,10 +406,19 @@ function choose_month() {
         m.addEventListener('click', () => {
             //Приховуємо місяці
             hide_monthes();
-            //Підганяємо верстку
-            top_month.style.marginTop = '0';
             //Видаляємо старі дні
-           
+            calendar.querySelectorAll('.day').forEach(d => {
+                d.remove();
+            });
+            //Додаємо нові дні відповідно до вибору місяця
+            add_days(n, Number(mid_date.innerHTML.slice(0, 4)));
+            //Показуємо дні
+            show_days();
+            //Корегуємо верстку
+            top_month.style.marginTop = '0';
+            //Змінюємо дату над днями відповідно вибраного місяця і року
+            show_mid_date(`${monthes_2[n]} ${mid_date.innerHTML.slice(0, 4)} p.`);
+
             //Переводимо у відповідний режим перегляду
             mode = 1;
         });
@@ -432,8 +438,10 @@ setInterval(() => {
     show_date(now);
     make_current(now);
 }, 10);
+//Викликаємо один раз щоб показати актуальну дату над днями
+show_mid_date(`${monthes_2[new Date(Date.now()).getMonth()]} ${new Date(Date.now()).getFullYear()} p.`);
 // Додає дні для актуальної дати
-add_days(new Date(Date.now()).getMonth(), new Date(Date.now()).getFullYear()); // цю херню треба викликати після інших
+add_days(new Date(Date.now()).getMonth(), new Date(Date.now()).getFullYear());
 // Дозволяє змінювати режими перегляду
 switch_view();
 // Дозволяє вибирати місяць
